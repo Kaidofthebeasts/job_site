@@ -1,0 +1,4 @@
+.scrollable-dropdown {
+        max-height: 10000px; /* Adjust the height as needed */
+        overflow: auto;
+    }

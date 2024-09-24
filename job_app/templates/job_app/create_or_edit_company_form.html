@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="form-container m-3">
+    <div class="form-wrapper">
+        <h1 class="mb-">{% if company.id %}
+                    Edit Company
+                {% else %}
+                    Add Company
+                {% endif %}</h1>
+        <form action="" method="POST">
+            {% csrf_token %}
+            <div class="mt-10">
+                {{ form.name.label_tag }}
+                {{ form.name }}
+            </div>
+            <div class="mt-10">
+                {{ form.email.label_tag }}
+                {{ form.email }}
+            </div>
+            <div class="mt-10">
+                {{ form.phone.label_tag }}
+                {{ form.phone }}
+            </div>
+            <div class="mt-10">
+                {{ form.website.label_tag }}
+                {{ form.website }}
+            </div>
+            <div class="mt-10">
+                {{ form.about.label_tag }}
+                {{ form.about }}
+            </div>
+            <div class="mt-10">
+                {{ form.verified.label_tag }}
+                {{ form.verified }}
+            </div>
+            <button type="submit" class="btn head-btn1">
+                {% if company.id %}
+                    Edit Company
+                {% else %}
+                    Add Company
+                {% endif %}
+            </button>
+        </form>
+    </div>
+</div>
+{% endblock content %}

@@ -1,0 +1,28 @@
+{% extends "main.html" %}
+{% block content %}
+<main class="h-full pb-16 overflow-y-auto">
+    <div class="container px-6 mx-auto grid">
+        <h2 class="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200">
+            {{ application.job.title }}
+        </h2>
+        <div class="min-w-0 p-4 bg-white rounded-lg shadow-xs dark:bg-gray-800">
+            <h4 class="mb-4 font-semibold text-gray-600 dark:text-gray-300">
+                Application Details
+            </h4>
+            <p class="text-gray-600 dark:text-gray-400">
+                <strong>Applied Job:</strong> {{ application.job.title }}<br>
+                <strong>Applicant's Full Name:</strong> {{ application.full_name }}<br>
+                <strong>Applicant's Email:</strong> {{ application.email }}<br>
+                <strong>Applicant's Age:</strong> {{ application.age }}<br>
+                <strong>Applicant's City:</strong> {{ application.city }}<br>
+                <strong>Applicant's Resume:</strong> <a href="{{ application.resume.url }}" download>Download Resume</a><br>
+                <strong>Applicant's Cover letter:</strong> {{ application.cover_letter }}<br>
+            </p>
+            
+            <button class="px-4 py-2 text-sm font-medium leading-5 text-black transition-colors duration-150 bg-white border border-transparent rounded-lg active:bg-gray-200 hover:bg-gray-100 focus:outline-none focus:shadow-outline-gray">
+                <a href="{% url 'applications' %}">Back</a>
+            </button>
+        </div>
+    </div>
+</main>
+{% endblock content %}

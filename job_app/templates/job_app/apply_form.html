@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="form-container m-3">
+  <div class="form-wrapper">
+    <h1 class="mb-">Apply for {{job.title}}</h1>
+    <form action="" method="POST" enctype="multipart/form-data">
+      {% csrf_token %}
+      {{ form.job }}
+      <div class="mt-10">
+        {{ form.full_name.label_tag }} {{ form.full_name }}
+        {% if form.full_name.errors %}
+        <div style="color: red; font-size: 0.9em">
+          {{ form.full_name.errors }}
+        </div>
+        {% endif %}
+      </div>
+      <div class="mt-10">
+        {{ form.age.label_tag }} {{ form.age }}
+        {% if form.age.errors %}
+        <div style="color: red; font-size: 0.9em">
+          {{ form.age.errors }}
+        </div>
+        {% endif %}
+      </div>
+      <div class="mt-10">
+        {{ form.city.label_tag }} {{ form.city }}
+        {% if form.city.errors %}
+        <div style="color: red; font-size: 0.9em">
+          {{ form.city.errors }}
+        </div>
+        {% endif %}
+      </div>
+      <div class="mt-10">
+        {{ form.email.label_tag }} {{ form.email }}
+        {% if form.email.errors %}
+        <div style="color: red; font-size: 0.9em">
+          {{ form.email.errors }}
+        </div>
+        {% endif %}
+      </div>
+      <div class="mt-10">
+        {{ form.resume.label_tag }} {{ form.resume }}
+        {% if form.resume.errors %}
+        <div style="color: red; font-size: 0.9em">
+          {{ form.resume.errors }}
+        </div>
+        {% endif %}
+      </div>
+      <div class="mt-10">
+        {{ form.cover_letter.label_tag }} {{ form.cover_letter }}
+        {% if form.cover_letter.errors %}
+        <div style="color: red; font-size: 0.9em">
+          {{ form.cover_letter.errors }}
+        </div>
+        {% endif %}
+      </div>
+      <button type="submit" class="btn head-btn1">Apply</button>
+    </form>
+  </div>
+</div>
+{% endblock content %}

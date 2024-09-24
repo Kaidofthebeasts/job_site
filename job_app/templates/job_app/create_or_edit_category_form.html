@@ -1,0 +1,17 @@
+{% extends "base.html" %} {% block content %}
+<div class="form-container m-3">
+  <div class="form-wrapper">
+    <h1 class="mb-">
+      {% if category.id %} Edit Category {% else %} Add Category {% endif %}
+    </h1>
+    <form action="" method="POST" enctype="multipart/form-data">
+      {% csrf_token %}
+      <div class="mt-10">{{ form.name.label_tag }} {{ form.name }}</div>
+      <div class="mt-10">{{ form.logo.label_tag }} {{ form.logo }}</div>
+      <button type="submit" class="btn head-btn1">
+        {% if category.id %} Edit Category {% else %} Add Category {% endif %}
+      </button>
+    </form>
+  </div>
+</div>
+{% endblock content %}

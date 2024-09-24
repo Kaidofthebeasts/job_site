@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="form-container m-3">
+  <div class="form-wrapper">
+    <h1 class="mb-">Login</h1>
+    <form action="" method="POST" enctype="multipart/form-data">
+      {% csrf_token %}
+      <div class="mt-10">
+        {{ form.username.label_tag }}
+        {{ form.username }}
+        {% if form.username.errors %}
+          <div class="error">{{ form.username.errors }}</div>
+        {% endif %}
+      </div>
+      <div class="mt-10">
+        {{ form.password.label_tag }}
+        {{ form.password }}
+        {% if form.password.errors %}
+          <div class="error">{{ form.password.errors }}</div>
+        {% endif %}
+      </div>
+      <button type="submit" class="btn head-btn1">Login</button>
+    </form>
+  </div>
+</div>
+{% endblock content %}

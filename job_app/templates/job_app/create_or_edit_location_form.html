@@ -1,0 +1,17 @@
+{% extends "base.html" %} {% block content %}
+<div class="form-container m-3">
+  <div class="form-wrapper">
+    <h1 class="mb-">
+      {% if location.id %} Edit Location {% else %} Add Location {% endif %}
+    </h1>
+    <form action="" method="POST">
+      {% csrf_token %}
+      <div class="mt-10">{{ form.country.label_tag }} {{ form.country }}</div>
+      <div class="mt-10">{{ form.city.label_tag }} {{ form.city }}</div>
+      <button type="submit" class="btn head-btn1">
+        {% if location.id %} Edit Location {% else %} Add Location {% endif %}
+      </button>
+    </form>
+  </div>
+</div>
+{% endblock content %}

@@ -1,0 +1,35 @@
+{% extends "main.html" %}
+{% block content %}
+<main class="h-full pb-16 overflow-y-auto">
+    <div class="container px-6 mx-auto grid">
+        <h2 class="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200">
+            
+        </h2>
+        <div class="min-w-0 p-4 bg-white rounded-lg shadow-xs dark:bg-gray-800">
+            <h4 class="mb-4 font-semibold text-gray-600 dark:text-gray-300">
+                Location
+            </h4>
+            <p class="text-gray-600 dark:text-gray-400">
+                <strong>City:</strong> {{ location.city}}<br>
+                <strong>Country:</strong> {{ location.country }}<br>              
+            </p>
+            <button class="mt-2 px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple">
+    <a href="{% url 'edit_location' location.id %}">Edit</a>
+</button>
+<form action="{% url 'delete_location' location.id %}" method="POST" style="display:inline;">
+    {% csrf_token %}
+    <button type="submit" class="px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-red-600 border border-transparent rounded-lg active:bg-red-600 hover:bg-red-700 focus:outline-none focus:shadow-outline-red" onclick="return confirm('Are you sure you want to delete this location?');">
+        Delete
+    </button>
+</form>
+<button class="px-4 py-2 text-sm font-medium leading-5 text-black transition-colors duration-150 bg-white border border-transparent rounded-lg active:bg-gray-200 hover:bg-gray-100 focus:outline-none focus:shadow-outline-gray">
+    <a href="{% url 'locations' %}">Back</a>
+</button>
+
+
+        </div>
+        
+    </div>
+    
+</main>
+{% endblock content %}

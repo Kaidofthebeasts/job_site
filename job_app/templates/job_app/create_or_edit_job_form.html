@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="form-container m-3">
+    <div class="form-wrapper">
+        <h1 class="mb-">{% if job %}
+                    Edit Job
+                {% else %}
+                    Add Job
+                {% endif %}</h1>
+        <form action="" method="POST">
+            {% csrf_token %}
+            <div class="mt-10">
+                <label for="id_title">Job Title</label>
+                {{ form.title }}
+            </div>
+            <div class="mt-10">
+                <label for="id_description">Description</label>
+                {{ form.description }}
+            </div>
+            <div class="mt-10">
+                <label for="id_company">Company</label>
+                {{ form.company }}
+            </div>
+            <div class="mt-10">
+                <label for="id_location">Location</label>
+                {{ form.location }}
+            </div>
+            <div class="mt-10">
+                <label for="id_job_type">Job Type</label>
+                {{ form.job_type }}
+            </div>
+            <div class="mt-10">
+                <label for="id_salary">Salary</label>
+                {{ form.salary }}
+            </div>
+            <div class="mt-10">
+                <label for="id_application_deadline">Application Deadline</label>
+                {{ form.application_deadline }}
+            </div>
+            <div class="mt-10">
+                <label for="id_vacancies">Vacancies</label>
+                {{ form.vacancies }}
+            </div>
+            <div class="mt-10">
+                <label for="id_required_knowledge_skills_abilities">Required Knowledge, Skills, and Abilities</label>
+                {{ form.required_knowledge_skills_abilities }}
+            </div>
+            <div class="mt-10">
+                <label for="id_education_experience">Education + Experience</label>
+                {{ form.education_experience }}
+            </div>
+            <div class="mt-10">
+                <label for="id_min_experience_years">Minimum Experience Years</label>
+                {{ form.min_experience_years }}
+            </div>
+            <div class="mt-10">
+                <label for="id_job_category">Job Category</label>
+                {{ form.job_category }}
+            </div>
+            <button type="submit" class="btn head-btn1">{% if job %}
+                    Edit Job
+                {% else %}
+                    Add Job
+                {% endif %}</button>
+        </form>
+    </div>
+</div>
+{% endblock content %}

@@ -1,0 +1,108 @@
+{% extends "main.html" %}
+{% block content %}
+<main class="h-full overflow-y-auto">
+  <div class="container px-6 mx-auto grid">
+    <h2 class="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200">
+      Applications
+      <br><br>
+     
+    </h2>
+
+    <!-- Filter Form -->
+    <form method="get" class="mb-4">
+      <input type="text" name="filter" value="{{ filter_by }}" placeholder="Filter by name, city, job title, or company" class="px-4 py-2 border rounded-md">
+      <button type="submit" class="px-4 py-2 text-sm font-medium leading-5 text-white bg-purple-600 border border-transparent rounded-lg hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple">Filter</button>
+    </form>
+
+    <!-- Sorting Dropdown -->
+    <form method="get" class="mb-4">
+      <input type="hidden" name="filter" value="{{ filter_by }}">
+      <select name="sort" class="px-4 py-2 border rounded-md">
+        <option value="full_name" {% if sort_by == 'full_name' %}selected{% endif %}>Sort by Name</option>
+        <option value="-full_name" {% if sort_by == '-full_name' %}selected{% endif %}>Sort by Name Desc</option>
+        <option value="city" {% if sort_by == 'city' %}selected{% endif %}>Sort by City</option>
+        <option value="-city" {% if sort_by == '-city' %}selected{% endif %}>Sort by City Desc</option>
+        <option value="job__title" {% if sort_by == 'job__title' %}selected{% endif %}>Sort by Job Title</option>
+        <option value="-job__title" {% if sort_by == '-job__title' %}selected{% endif %}>Sort by Job Title Desc</option>
+        <option value="job__company__name" {% if sort_by == 'job__company__name' %}selected{% endif %}>Sort by Company</option>
+        <option value="-job__company__name" {% if sort_by == '-job__company__name' %}selected{% endif %}>Sort by Company Desc</option>
+        <option value="applied_at" {% if sort_by == 'applied_at' %}selected{% endif %}>Sort by Application Date</option>
+        <option value="-applied_at" {% if sort_by == '-applied_at' %}selected{% endif %}>Sort by Application Date Desc</option>
+      </select>
+      <button type="submit" class="px-4 py-2 text-sm font-medium leading-5 text-white bg-purple-600 border border-transparent rounded-lg hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple">Sort</button>
+    </form>
+
+    <!-- Applications Table -->
+    <div class="w-full overflow-hidden mb-8 rounded-lg shadow-xs">
+      <div class="w-full overflow-x-auto">
+        <table class="w-full whitespace-no-wrap">
+          <thead>
+            <tr class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
+              <th class="px-4 py-3">#</th>
+              <th class="px-4 py-3">Name</th>
+              <th class="px-4 py-3">City</th>
+              <th class="px-4 py-3">Job Title</th>
+              <th class="px-4 py-3">Company</th>
+              <th class="px-4 py-3">Applied At</th>
+            </tr>
+          </thead>
+          <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
+            {% for application in page_obj %}
+            <tr class="text-gray-700 dark:text-gray-400 cursor-pointer" onclick="window.location.href='{% url 'application_detail' application.id %}'">
+              <td class="px-4 py-3">{{ forloop.counter }}</td>
+              <td class="px-4 py-3">{{ application.full_name }}</td>
+              <td class="px-4 py-3">{{ application.city }}</td>
+              <td class="px-4 py-3">{{ application.job.title }}</td>
+              <td class="px-4 py-3">{{ application.job.company.name }}</td>
+              <td class="px-4 py-3">{{ application.applied_at }}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+      <div class="grid px-4 py-3 text-xs font-semibold tracking-wide text-gray-500 uppercase border-t dark:border-gray-700 bg-gray-50 sm:grid-cols-9 dark:text-gray-400 dark:bg-gray-800">
+        <span class="flex items-center col-span-3">
+          Showing {{ page_obj.start_index }}-{{ page_obj.end_index }} of {{ page_obj.paginator.count }}
+        </span>
+        <span class="col-span-2"></span>
+        <!-- Pagination -->
+        <span class="flex col-span-4 mt-2 sm:mt-auto sm:justify-end">
+          <nav aria-label="Table navigation">
+            <ul class="inline-flex items-center">
+              {% if page_obj.has_previous %}
+              <li>
+                <a href="?page={{ page_obj.previous_page_number }}&sort={{ sort_by }}&filter={{ filter_by }}" class="px-3 py-1 rounded-md rounded-l-lg focus:outline-none focus:shadow-outline-purple" aria-label="Previous">
+                  <svg aria-hidden="true" class="w-4 h-4 fill-current" viewBox="0 0 20 20">
+                    <path d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd" fill-rule="evenodd"></path>
+                  </svg>
+                </a>
+              </li>
+              {% endif %}
+              {% for num in page_obj.paginator.page_range %}
+              {% if page_obj.number == num %}
+              <li>
+                <span class="px-3 py-1 text-white transition-colors duration-150 bg-purple-600 border border-r-0 border-purple-600 rounded-md focus:outline-none focus:shadow-outline-purple">{{ num }}</span>
+              </li>
+              {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+              <li>
+                <a href="?page={{ num }}&sort={{ sort_by }}&filter={{ filter_by }}" class="px-3 py-1 rounded-md focus:outline-none focus:shadow-outline-purple">{{ num }}</a>
+              </li>
+              {% endif %}
+              {% endfor %}
+              {% if page_obj.has_next %}
+              <li>
+                <a href="?page={{ page_obj.next_page_number }}&sort={{ sort_by }}&filter={{ filter_by }}" class="px-3 py-1 rounded-md rounded-r-lg focus:outline-none focus:shadow-outline-purple" aria-label="Next">
+                  <svg class="w-4 h-4 fill-current" aria-hidden="true" viewBox="0 0 20 20">
+                    <path d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a 1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" fill-rule="evenodd"></path>
+                  </svg>
+                </a>
+              </li>
+              {% endif %}
+            </ul>
+          </nav>
+        </span>
+      </div>
+    </div>
+  </div>
+</main>
+{% endblock content %}
